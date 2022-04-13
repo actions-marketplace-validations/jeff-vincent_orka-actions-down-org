@@ -1,13 +1,13 @@
-# orka-actions-down
+# orka-actions-down-org
 
 Run self-hosted, macOS workflows on MacStadium's Orka. 
 
 ## Overview
-This action is intended to be paired with [`jeff-vincent/orka-actions-up@v1.1.1`](https://github.com/marketplace/actions/orka-actions-up) in order to pass iOS and macOS CI/CD jobs to ephemeral, self-hosted runners in [MacStadium's Orka](https://orkadocs.macstadium.com). 
+This action is intended to be paired with [`jeff-vincent/orka-actions-up-org@v1.0.0`](https://github.com/marketplace/actions/orka-actions-up-org) in order to pass iOS and macOS CI/CD jobs to ephemeral, self-hosted runners in [MacStadium's Orka](https://orkadocs.macstadium.com). 
 
-[`jeff-vincent/orka-actions-up@v1.1.1`](https://github.com/marketplace/actions/orka-actions-up) is responsible for spinning up a fresh macOS VM in Orka, which then registers itself as a self-hosted runner with the help of the agent resources housed and detailed in [`jeff-vincent/orka-actions-connect`](https://github.com/jeff-vincent/orka-actions-connect). 
+[`jeff-vincent/orka-actions-up-org@v1.0.0`](https://github.com/marketplace/actions/orka-actions-up-org) is responsible for spinning up a fresh macOS VM in Orka, which then registers itself as a self-hosted runner with the help of the agent resources housed and detailed in [`jeff-vincent/orka-actions-connect`](https://github.com/jeff-vincent/orka-actions-connect). 
 
-Finally, as shown in the example below, `jeff-vincent/orka-actions-down@v1.1.0` tears down the ephemeral macOS, self-hosted runner.
+Finally, as shown in the example below, `jeff-vincent/orka-actions-down-org@v1.0.0` tears down the ephemeral macOS, self-hosted runner.
 
 ## Example workflow
 
@@ -23,12 +23,13 @@ jobs:
     steps:
     - name: Job 1
       id: job1
-      uses: jeff-vincent/orka-actions-up@v1.1.1
+      uses: jeff-vincent/orka-actions-up-org@v1.0.0
       with:
         orkaUser: ${{ secrets.ORKA_USER }}
         orkaPass: ${{ secrets.ORKA_PASS }}
         orkaBaseImage: gha_bigsur_v3.img             # NOTE: this `.img` file is the agent that has been defined in Orka
-        githubPat: ${{ secrets.GH_PAT }}             
+        githubPat: ${{ secrets.GH_PAT }}
+        githubOrg: example-org-1
         vpnUser: ${{ secrets.VPN_USER }}
         vpnPassword: ${{ secrets.VPN_PASSWORD }}
         vpnAddress: ${{ secrets.VPN_ADDRESS }}
@@ -53,11 +54,12 @@ jobs:
     steps:
     - name: Job 3
       id: job3
-      uses: jeff-vincent/orka-actions-down@v1.1.0
+      uses: jeff-vincent/orka-actions-down-org@v1.0.0
       with:
         orkaUser: ${{ secrets.ORKA_USER }}
         orkaPass: ${{ secrets.ORKA_PASS }}
         githubPat: ${{ secrets.GH_PAT }}
+        githubOrg: example-org-1
         vpnUser: ${{ secrets.VPN_USER }}
         vpnPassword: ${{ secrets.VPN_PASSWORD }}
         vpnAddress: ${{ secrets.VPN_ADDRESS }}
