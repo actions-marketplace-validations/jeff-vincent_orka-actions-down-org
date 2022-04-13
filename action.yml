@@ -1,4 +1,4 @@
-name: 'orka-actions-down'
+name: 'orka-actions-down-org'
 description: 'Tear down an orka actions runner'
 runs:
   using: "composite"
